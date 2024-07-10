@@ -213,7 +213,7 @@ elif (choose == "Admin :shallow_pan_of_food:"):
         
         # col1 edit menu makanan
         editmenu_df = tab1.data_editor(
-                menu_df[["Item", "Price", "Picture"]], column_config={
+                menu_df[["Item", "Price"]], column_config={
                     "Item": "Edit Nama Menu",
                     "Price": st.column_config.NumberColumn(
                         "Harga Baru",
