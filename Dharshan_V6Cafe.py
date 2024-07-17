@@ -268,8 +268,8 @@ elif (choose == "Admin :shallow_pan_of_food:"):
                 tab2.success("Order Has Been Served To Customer!")
     
 elif (choose == "Chef :male-cook:"):
-    rahsia = st.number_input('Enter Admin Passcode', format= "%d", placeholder="Enter Passcode", step=1)
-    if rahsia == 12345:
+    rahsia = st.number_input('Enter Chef Passcode', format= "%d", placeholder="Enter Passcode", step=1)
+    if rahsia == 123:
         
         st.title("Chef Page")
         cwd = os.getcwd()
