@@ -271,24 +271,24 @@ elif (choose == "Chef :male-cook:"):
     rahsia = st.number_input('Enter Admin Passcode', format= "%d", placeholder="Enter Passcode", step=1)
     if rahsia == 12345:
         
-    st.title("Chef Page")
-    cwd = os.getcwd()
-    print (cwd)
-    file = []
-    file = fnmatch.filter(os.listdir(cwd), 'sales_order*.csv')
-    ordersum =len(file)
-    for order in file:
-        tableno = order[12]
-        orderdf = pd.read_csv(order)
-        orderdf["Done"] = False
-        orderdf["TableNo"]= tableno
-        editedorderdf = st.data_editor(
-            orderdf,disabled=["Item", "Quantity", "Price", "Item Total"], hide_index=True)
-        
-        if st.button('Confirm Preparation of Table '+tableno):
-            editedorderdf.to_csv('sales_chef_'+tableno+'.csv')
-            os.rename(order,"chefdone"+order)
-            st.success("Order Has Been Submitted Successfully!")
+        st.title("Chef Page")
+        cwd = os.getcwd()
+        print (cwd)
+        file = []
+        file = fnmatch.filter(os.listdir(cwd), 'sales_order*.csv')
+        ordersum =len(file)
+        for order in file:
+            tableno = order[12]
+            orderdf = pd.read_csv(order)
+            orderdf["Done"] = False
+            orderdf["TableNo"]= tableno
+            editedorderdf = st.data_editor(
+                orderdf,disabled=["Item", "Quantity", "Price", "Item Total"], hide_index=True)
+            
+            if st.button('Confirm Preparation of Table '+tableno):
+                editedorderdf.to_csv('sales_chef_'+tableno+'.csv')
+                os.rename(order,"chefdone"+order)
+                st.success("Order Has Been Submitted Successfully!")
 
 elif (choose == "Report :printer:"):
     sale_df = conn.read(worksheet="Sales_report")
