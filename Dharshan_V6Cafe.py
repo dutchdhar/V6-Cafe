@@ -118,7 +118,7 @@ if (choose == "Order :rice:"):
     column_config={
         "Price (RM)": st.column_config.NumberColumn(format="RM %.2f"),
         "Picture": st.column_config.ImageColumn(
-            "Gambar", help="Cadangan Hiasan"
+            "Picture", help="Cadangan Hiasan"
         )
     },disabled=["Item", "Price (RM)", "Picture"],
     hide_index=True,
