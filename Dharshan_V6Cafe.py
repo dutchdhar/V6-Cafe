@@ -79,7 +79,7 @@ def report_sales(order_list, total, item_totals):
     return item_totals_df, order_df
     
 # Load menu data from CSV
-st.sidebar.title("V6 Cafe")
+st.sidebar.title("Welcome to UEats!")
 
 # url ="https://docs.google.com/spreadsheets/d/1XdZbliiwVgXn9i_JtTPme4Iq5zrQmutMApnW0xQcoPA/edit?usp=sharing"
 # ----------------------
@@ -95,17 +95,17 @@ menu_df.index = menu_df.index+1
 TableNo=0
 
 formside = st.sidebar.form("side_form")
-choose = formside.radio("pilih menu",["Order :rice:","Chef :male-cook:", "Admin :shallow_pan_of_food:", "Report :printer:"], index=None)
+choose = formside.radio("Please Select An Option.",["Order :rice:","Chef :male-cook:", "Admin :shallow_pan_of_food:", "Report :printer:"], index=None)
 formside.form_submit_button("Submit")
 
 if (choose == "Order :rice:"):
-    st.title("Restaurant Menu Sedap Selalu")
+    st.title("Harraz Cafe Village 6")
     # st.image("menu_food.png")
     col1, col2, col3= st.columns(3)
     # Display menu
     col1.subheader("Menu")
     col2.subheader("Place Your Order")
-    col3.subheader("Table No Information")
+    col3.subheader("Order Collection Status")
 
     TableNo = col2.number_input(f"Table No", min_value=1, max_value=9 )
     menu_df['Quantity'] = menu_df.apply(lambda x: col2.number_input(f"Quantity of {x['Item']}", min_value=0, max_value=10, key=x['Item']), axis=1)
@@ -153,17 +153,17 @@ if (choose == "Order :rice:"):
         
     # Total Sales Report
     dfmerge = pd.DataFrame
-    col1.subheader("Total Orders")
+    col1.subheader("Order Summary")
     col1.write("This section will display the total sales report.")
     dftotal,dfitem = report_sales(order_list, total_order, item_totals)
     dfmerge = dfmerge.merge(dfitem, dftotal)
     dfmerge.index = dfmerge.index+1
     col1.write(dfmerge)
-    col1.write(f"Total Order Amount: RM{total_order:.2f}")
+    col1.write(f"Total Price of Order: RM{total_order:.2f}")
 
         
         # st.write(dfitem)
-    if col1.button("Save/Submit Order"):
+    if col1.button("Send Order"):
         #timestamp = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
         timestamp = datetime.now().strftime("%d_%m_%Y_%H_%M")
         dfmerge = pd.DataFrame
@@ -176,7 +176,7 @@ if (choose == "Order :rice:"):
         # st.toast('Hip!')
         # time.sleep(.5)
         st.toast('Hooray!', icon='🎉')
-        col1.success("Order saved and submit successfully!")
+        col1.success("Your order has been submitted successfully!")
         
 
     #Display Current Order
@@ -189,22 +189,22 @@ if (choose == "Order :rice:"):
         orderdf = pd.read_csv(order)
         orderdf = orderdf.reset_index(drop=True)
         orderdf.index = orderdf.index+1
-        col3.subheader(":green[Meja No "+tableno+", order sedang dihantar]")
+        col3.subheader(":green[Table No "+tableno+", your order is ready to be collected!]")
         col3.write(orderdf[["Item", "Quantity","Item Total"]])
     # video_file = open('https://youtu.be/Wh66ThpxvI4?si=_2OuZ_t5UBuT3CIC', 'rb')
     # video_bytes = video_file.read()
-    col3.video('https://youtu.be/Wh66ThpxvI4?si=_2OuZ_t5UBuT3CIC')
+    col3.video('https://www.youtube.com/watch?v=isCbfE1PEz0&ab_channel=UTPResidentialVillage')
     
     
    
     
 elif (choose == "Admin :shallow_pan_of_food:"):
-    rahsia = st.number_input('Masukkan Kod', format= "%d", placeholder="Masukkan Kata Rahsia", step=1)
+    rahsia = st.number_input('Enter Admin Passcode', format= "%d", placeholder="Enter Passcode", step=1)
     if rahsia == 12345:
     
         st.title("Admin Page")
         # st.image("menu_food.png")
-        tab1, tab2, tab3 = st.tabs(["Menu Makanan - Suntingan/Edit", "Order Kena Hantar", "Jualan Terkini"])
+        tab1, tab2, tab3 = st.tabs(["Menu - Edit", "Completed Orders", "Latest Sales"])
         # col1, col2, col3= st.columns(3)
         # Display menu
         # col1.subheader("Menu Makanan - Suntingan/Edit")
@@ -214,19 +214,19 @@ elif (choose == "Admin :shallow_pan_of_food:"):
         # col1 edit menu makanan
         editmenu_df = tab1.data_editor(
                 menu_df[["Item", "Price"]], column_config={
-                    "Item": "Edit Nama Menu",
+                    "Item": "Edit Menu",
                     "Price": st.column_config.NumberColumn(
-                        "Harga Baru",
-                        help="Tukarkan Harga",
+                        "New Price",
+                        help="Change Price",
                         min_value=1.00,
                         max_value=20.00,step=0.10,
                         format="%.2f",
                     ),
                     "Picture": "Link Gambar Baru",
                 }, hide_index=True)
-        if tab1.button('Klik Sini Kemaskini Menu Baru'):
+        if tab1.button('Click Here To Update Menu'):
             conn.update(worksheet="menu", data=editmenu_df)
-            tab1.success("Menu Berjaya dikemaskini")
+            tab1.success("Menu Was Successfully Updated")
             
         # col2 updatesale = pd.DataFrame()
         file = []
@@ -248,13 +248,13 @@ elif (choose == "Admin :shallow_pan_of_food:"):
                     ),
                 },disabled=["Item", "Quantity", "Price", "Item Total"], hide_index=True)
             
-            tab2.write(f"Chef Dah Siap untuk meja :{tableno}")
+            tab2.write(f"Chef Has Finished Preparing for Table :{tableno}")
             sale_df = conn.read(worksheet="Sales_report")
             sale_df = pd.DataFrame(sale_df)
             sale_df = sale_df.dropna(subset=["Item"])
             sale_df = sale_df[["Item", "Quantity", "Price", "Item Total", "Rating", "Datetime"]]
             # st.write("data google", sale_df)
-            if tab2.button('Klik Sini Kalau Dah Hantar ke Meja '+tableno):
+            if tab2.button('Click Here if Food Has Been Served to Table'+tableno):
                 timestamp = datetime.now().strftime("%d\%m\%Y_%H:%M:%S")
                 editedorderdf["Datetime"] = timestamp
                 editedorderdf = editedorderdf[["Item", "Quantity", "Price", "Item Total", "Rating", "Datetime"]]
@@ -265,7 +265,7 @@ elif (choose == "Admin :shallow_pan_of_food:"):
                 # editedorderdf.to_csv('sales_report_'+tableno+'_'+timestamp+'.csv')
                 conn.update(worksheet="Sales_report", data=updatesale)
                 os.rename(order,"served"+order)
-                tab2.success("Order dah hantar ke pelanggan!")
+                tab2.success("Order Has Been Served To Customer!")
     
 elif (choose == "Chef :male-cook:"):
     st.title("Chef Page")
@@ -282,10 +282,10 @@ elif (choose == "Chef :male-cook:"):
         editedorderdf = st.data_editor(
             orderdf,disabled=["Item", "Quantity", "Price", "Item Total"], hide_index=True)
         
-        if st.button('Confirm Siap Table '+tableno):
+        if st.button('Confirm Preparation of Table '+tableno):
             editedorderdf.to_csv('sales_chef_'+tableno+'.csv')
             os.rename(order,"chefdone"+order)
-            st.success("Order Chef Save and submit successfully!")
+            st.success("Order Has Been Submitted Successfully!")
 
 elif (choose == "Report :printer:"):
     sale_df = conn.read(worksheet="Sales_report")
@@ -362,6 +362,11 @@ elif (choose == "Report :printer:"):
     
         
     #     for _key, value in order_list.items():
+    #         st.write(f'Menu: {_key}, Kuantiti: {value[0]} , RM: {value[1]}')
+    # # order_list
+        
+
+
     #         st.write(f'Menu: {_key}, Kuantiti: {value[0]} , RM: {value[1]}')
     # # order_list
         
