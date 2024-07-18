@@ -81,13 +81,13 @@ def report_sales(order_list, total, item_totals):
 # Load menu data from CSV
 st.sidebar.title("Welcome to UEats!")
 
-# url ="https://docs.google.com/spreadsheets/d/1XdZbliiwVgXn9i_JtTPme4Iq5zrQmutMApnW0xQcoPA/edit?usp=sharing"
+url ="https://docs.google.com/spreadsheets/d/1QlA4nooETi96PUUi3Kwzfsg__tdxqfc4JKv2Ei6WPh0/edit?usp=sharing"
 # ----------------------
-# conn = st.connection("gsheets", type=GSheetsConnection)
-# #menu_df = conn.read(spreadsheet=url,nrows=7,  worksheet="menu")
-# menu_df = conn.read(nrows=7, usecols=list(range(3)), ttl="1m",  worksheet="menu")
+conn = st.connection("gsheets", type=GSheetsConnection)
+menu_df = conn.read(spreadsheet=url,nrows=7,  worksheet="menu")
+menu_df = conn.read(nrows=7, usecols=list(range(3)), ttl="1m",  worksheet="menu")
 # --------------------
-menu_df = pd.read_csv("menu.csv")
+# menu_df = pd.read_csv("menu.csv")
 menu_df = pd.DataFrame(menu_df)
 menu_df = menu_df.dropna(subset=["Item"])
 menu_df = menu_df.reset_index(drop=True)
