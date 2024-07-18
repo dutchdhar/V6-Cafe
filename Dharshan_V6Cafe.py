@@ -228,7 +228,7 @@ elif (choose == "Admin :shallow_pan_of_food:"):
             conn.update(worksheet="menu", data=editmenu_df)
             tab1.success("Menu Was Successfully Updated")
             
-        col2 updatesale = pd.DataFrame()
+        # col2 updatesale = pd.DataFrame()
         file = []
         file = fnmatch.filter(os.listdir(cwd), 'sales_chef*.csv')
         for order in file:
