@@ -9,7 +9,7 @@ from PIL import Image
 import glob
 warnings.filterwarnings("ignore")
 
-# from streamlit_gsheets import GSheetsConnection
+from streamlit_gsheets import GSheetsConnection
 
 
 cwd = os.getcwd() 
@@ -81,7 +81,7 @@ def report_sales(order_list, total, item_totals):
 # Load menu data from CSV
 st.sidebar.title("Welcome to UEats!")
 
-url ="https://docs.google.com/spreadsheets/d/1QlA4nooETi96PUUi3Kwzfsg__tdxqfc4JKv2Ei6WPh0/edit?usp=sharing"
+# url ="https://docs.google.com/spreadsheets/d/1QlA4nooETi96PUUi3Kwzfsg__tdxqfc4JKv2Ei6WPh0/edit?usp=sharing"
 # ----------------------
 conn = st.connection("gsheets", type=GSheetsConnection)
 menu_df = conn.read(spreadsheet=url,nrows=7,  worksheet="menu")
