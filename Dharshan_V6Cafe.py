@@ -325,7 +325,7 @@ elif (choose == "Report :printer:"):
         st.subheader(f"Total Sales = RM{sale_df['Total Sales'].sum():.2f}")
         orderSQ = pd.DataFrame(list(order_listSQ.items()), columns=['Key', 'Values'])
         orderSS = pd.DataFrame(list(order_listSS.items()), columns=['Key', 'Values'])
-        orderSQ["Jumlah RM"] = orderSS["Values"]
+        orderSQ["Total RM"] = orderSS["Values"]
         orderSQ.rename(columns = {'Values':'Quantity'}, inplace = True) 
         orderSQ.rename(columns = {'Key':'Menu'}, inplace = True) 
         orderSQ.index = orderSQ.index+1
