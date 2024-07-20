@@ -322,7 +322,7 @@ elif (choose == "Report :printer:"):
     with st.expander("Report"):
         st.subheader("Total Orders")
         st.write("This section will display the total sales report.")
-        st.subheader(f"Total Sales in RM{sale_df['Total Sales'].sum():.2f}")
+        st.subheader(f"Total Sales = RM{sale_df['Total Sales'].sum():.2f}")
         orderSQ = pd.DataFrame(list(order_listSQ.items()), columns=['Key', 'Values'])
         orderSS = pd.DataFrame(list(order_listSS.items()), columns=['Key', 'Values'])
         orderSQ["Jumlah RM"] = orderSS["Values"]
