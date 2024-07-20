@@ -313,7 +313,7 @@ elif (choose == "Report :printer:"):
     # st.write(orderSQ.style.highlight_max(axis=0))
     # st.write(orderSS.style.highlight_max(axis=0))
     # editedorderSQ = st.data_editor(
-    #         orderSQ,column_config={"Key":"Menu", "Values":"Kuantiti"})
+    #         orderSQ,column_config={"Key":"Menu", "Values":"Quantity"})
     # editedorderSS = st.data_editor(
     #         orderSS,column_config={"Key":"Menu", "Values":"Total (RM)"})
     
@@ -322,11 +322,11 @@ elif (choose == "Report :printer:"):
     with st.expander("Report"):
         st.subheader("Total Orders")
         st.write("This section will display the total sales report.")
-        st.subheader(f"Jumlah Jualan RM{sale_df['Total Sales'].sum():.2f}")
+        st.subheader(f"Total Sales in RM{sale_df['Total Sales'].sum():.2f}")
         orderSQ = pd.DataFrame(list(order_listSQ.items()), columns=['Key', 'Values'])
         orderSS = pd.DataFrame(list(order_listSS.items()), columns=['Key', 'Values'])
         orderSQ["Jumlah RM"] = orderSS["Values"]
-        orderSQ.rename(columns = {'Values':'Kuantiti'}, inplace = True) 
+        orderSQ.rename(columns = {'Values':'Quantity'}, inplace = True) 
         orderSQ.rename(columns = {'Key':'Menu'}, inplace = True) 
         orderSQ.index = orderSQ.index+1
         st.write(orderSQ.style.highlight_min(axis=0))
@@ -336,7 +336,7 @@ elif (choose == "Report :printer:"):
         data_df = pd.DataFrame(
             {
                 "category": [
-                    "🍚 Nasi Lemak",
+                    "🍚 Nasi Goreng",
                     "🥣 Bihun Goreng",
                     "🍗 Ayam Goreng",
                     "🍹 Teh Tarik",
@@ -352,7 +352,7 @@ elif (choose == "Report :printer:"):
                     help="The category of the app",
                     width="medium",
                     options=[
-                        "🍚 Nasi Lemak",
+                        "🍚 Nasi Goreng",
                         "🥣 Bihun Goreng",
                         "🍗 Ayam Goreng",
                         "🍹 Teh Tarik",
@@ -365,12 +365,12 @@ elif (choose == "Report :printer:"):
     
         
     #     for _key, value in order_list.items():
-    #         st.write(f'Menu: {_key}, Kuantiti: {value[0]} , RM: {value[1]}')
+    #         st.write(f'Menu: {_key}, Quantity: {value[0]} , RM: {value[1]}')
     # # order_list
         
 
 
-    #         st.write(f'Menu: {_key}, Kuantiti: {value[0]} , RM: {value[1]}')
+    #         st.write(f'Menu: {_key}, Quantity: {value[0]} , RM: {value[1]}')
     # # order_list
         
 
